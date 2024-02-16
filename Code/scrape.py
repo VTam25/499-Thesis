@@ -19,7 +19,7 @@ def remove_tags(html):
  
 
 #open raw files directory
-raw_dir = "../CICS_Web_Raw_HTML"
+raw_dir = "./CICS_Web_Raw_HTML"
 files = os.listdir(raw_dir)
 
 titles = np.array([])
@@ -31,9 +31,9 @@ for f in files:
         print(f)
         print("__________________PAGE CONTENT__________________")
         print(stripped)
-        new_title = f[:len(f)-8]+"PARSE.html"
+        new_title = f[:len(f)-8]+"PARSE.txt"
         print(new_title)
-        new_path = "../CICS_Web_Parsed/" + new_title
+        new_path = "./CICS_Web_Parsed/" + new_title
         parsed_file = open(new_path, "w", encoding='utf-8',)
         parsed_file.write(stripped)
 
