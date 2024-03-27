@@ -12,7 +12,7 @@ chat = ChatOpenAI(
     model='gpt-3.5-turbo'
 )
 
-kbWhole = pd.read_csv('CSVs/KB_NecessaryDocs.csv')
+kb = pd.read_csv('CSVs/KB_NecessaryDocs.csv')
 
 import chromadb
 # from langchain_community.document_loaders import TextLoader
@@ -26,7 +26,7 @@ embed_model = OpenAIEmbeddings(model="text-embedding-ada-002")
 client = chromadb.PersistentClient(path="Collections/")
 collection = client.create_collection("NecessaryKB")
 
-data = kbWhole
+data = kb
 
 batch_size = 100
 
