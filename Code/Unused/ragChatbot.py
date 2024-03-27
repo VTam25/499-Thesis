@@ -126,3 +126,5 @@ messages.append(prompt)
 res = chat(messages)
 
 print(res.content)
+
+#NO LONGER USING PINECONE
