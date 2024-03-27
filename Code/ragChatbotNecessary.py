@@ -75,6 +75,7 @@ def augment_prompt(query: str):
     return augmented_prompt
 
 
+# CHANGE THIS LINE TO CHANGE THE QUERY
 query = "What are 2 faculty members in the Advanced Learning Technologies Laboratory at UMass Amherst?"
 #print(augment_prompt(query))
 
