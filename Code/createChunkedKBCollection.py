@@ -23,7 +23,6 @@ from langchain_community.vectorstores import Chroma
 embed_model = OpenAIEmbeddings(model="text-embedding-ada-002")
 
 client = chromadb.PersistentClient(path="Collections/")
-client.delete_collection("ChunkedKB")
 collection = client.create_collection("ChunkedKB")
 
 
@@ -47,30 +46,30 @@ for index, row in kbStarter.iterrows():
 #print(kbChunked)
 
 data = pd.DataFrame(kbChunked)
-print(data)
+#print(data)
 
-# batch_size = 100
+batch_size = 100
 
-# from tqdm.auto import tqdm  # for progress bar
+from tqdm.auto import tqdm  # for progress bar
 
-# for i in tqdm(range(0, len(data), batch_size)):
-#     i_end = min(len(data), i+batch_size)
-#     # get batch of data
-#     batch = data.iloc[i:i_end]
-#     # generate unique ids for each chunk
-#     ids_b = [str(i) for i, x in batch.iterrows()]
-#     # get text to embed
-#     texts = [x['Chunk'] for _, x in batch.iterrows()]
-#     # embed text
-#     embeds = embed_model.embed_documents(texts)
-#     metadata_b = [
-#         {'source': x['Link'],
-#          'title': x['Title']} for i, x in batch.iterrows()
-#     ]
+for i in tqdm(range(0, len(data), batch_size)):
+    i_end = min(len(data), i+batch_size)
+    # get batch of data
+    batch = data.iloc[i:i_end]
+    # generate unique ids for each chunk
+    ids_b = [str(i) for i, x in batch.iterrows()]
+    # get text to embed
+    texts = [x['Chunk'] for _, x in batch.iterrows()]
+    # embed text
+    embeds = embed_model.embed_documents(texts)
+    metadata_b = [
+        {'source': x['Link'],
+         'title': x['Title']} for i, x in batch.iterrows()
+    ]
 
-#     collection.add(
-#         embeddings = embeds,
-#         ids = ids_b,
-#         documents = texts,
-#         metadatas = metadata_b
-#     )
+    collection.add(
+        embeddings = embeds,
+        ids = ids_b,
+        documents = texts,
+        metadatas = metadata_b
+    )

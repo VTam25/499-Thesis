@@ -32,7 +32,7 @@ def searchDataByVector(query: str):
         query_vector = embed_model.embed_query(query)
         res = collection.query(
             query_embeddings=[query_vector],
-            n_results=1,
+            n_results=3,
             include=['distances','embeddings', 'documents', 'metadatas'],
         )
         # print("Query", "\n--------------")
